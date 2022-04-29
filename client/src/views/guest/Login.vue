@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-10 col-sm-8 col-md-6">
-          <form>
+          <form @submit.prevent="login($event)">
             <div class="mb-3">
               <label
                 for="exampleInputEmail1"
@@ -30,10 +30,12 @@
                 id="exampleInputPassword1"
               >
             </div>
+            <div class="form-text">
+              Non hai un account? Registrati <router-link :to="{name: 'register'}">Qui</router-link>
+            </div>
             <button
-              type="button"
-              class="btn btn-outline-dark"
-              @click="login"
+              type="submit"
+              class="btn btn-outline-dark my-3"
             >Accedi</button>
           </form>
         </div>
@@ -43,6 +45,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -51,7 +55,29 @@ export default {
     };
   },
   methods: {
-    login() {},
+    login(e) {
+      axios
+        .post("http://localhost:1337/api/auth/local", {
+          identifier: this.email,
+          password: this.password,
+        })
+        .then((resp) => {
+          const data = {
+            id: resp.data.user.id,
+            username: resp.data.user.username,
+            email: resp.data.user.email,
+          };
+
+          localStorage.setItem("userData", JSON.stringify(data));
+          localStorage.setItem("jwt", resp.data.jwt);
+
+          e.target.submit();
+        })
+        .catch((error) => {
+          // Handle error.
+          console.log("An error occurred:", error.response);
+        });
+    },
   },
   mounted() {
     if (localStorage.getItem("jwt")) this.$router.push({ name: "dashboard" });

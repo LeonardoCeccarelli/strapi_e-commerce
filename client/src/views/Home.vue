@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Pagina con vue</h1>
+    <h1>Homepage</h1>
   </div>
 </template>
 

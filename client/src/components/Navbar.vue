@@ -22,7 +22,7 @@
       >
         <!-- Utente loggato -->
         <ul
-          v-if="isLogged"
+          v-if="userData"
           class="navbar-nav"
         >
           <li class="nav-item dropdown">
@@ -34,24 +34,38 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Ciao, {{ user.username }}
+              Ciao, {{ userData.username }}
             </a>
             <ul
               class="dropdown-menu"
               aria-labelledby="navbarDropdownMenuLink"
             >
-              <li><a
+              <li>
+                <router-link
                   class="dropdown-item"
-                  href="#"
-                >Dashboard</a></li>
-              <li><a
+                  :to="{name: 'dashboard'}"
+                >Dashboard</router-link>
+              </li>
+              <li>
+                <router-link
                   class="dropdown-item"
-                  href="#"
-                >I Miei rdini</a></li>
-              <li><a
+                  :to="{name: 'orders'}"
+                >I Miei rdini</router-link>
+              </li>
+              <li>
+                <router-link
                   class="dropdown-item"
-                  href="#"
-                >Nuovo prodotto</a></li>
+                  :to="{name: 'createProduct'}"
+                >Nuovo prodotto</router-link>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <form @submit.prevent="logout($event)">
+                  <button class="dropdown-item">Logout</button>
+                </form>
+              </li>
             </ul>
           </li>
         </ul>
@@ -83,22 +97,18 @@
 export default {
   data() {
     return {
-      isLogged: false,
-      userData: {
-        typeof: Object,
-        default: () => ({}),
-      },
+      userData: {},
     };
   },
-  methods: {},
-  computed: {
-    setUser() {
-      if (localStorage.getItem("jwt"))
-        this.userData = localStorage.getItem("user");
+  methods: {
+    logout(e) {
+      localStorage.clear();
+      e.target.submit();
     },
   },
   mounted() {
-    this.setUser;
+    this.userData = JSON.parse(localStorage.getItem("userData"));
+    this.jwt = localStorage.getItem("jwt");
   },
 };
 </script>

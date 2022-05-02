@@ -33,6 +33,11 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "orders_received"
+    },
+    "scount_on_purchase": {
+      "type": "integer",
+      "max": 100,
+      "min": 0
     }
   }
 }

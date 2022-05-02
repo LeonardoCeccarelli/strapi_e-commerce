@@ -6,7 +6,9 @@ import GuProdShow from "../views/guest/products/Show.vue"
 import Login from "../views/guest/Login.vue"
 import Register from "../views/guest/Register.vue"
 import AdDashboard from "../views/admin/Dashboard.vue"
-import AdOrders from "../views/admin/Orders.vue"
+import AdOrders from "../views/admin/orders/Orders.vue"
+import AdCreateOrders from "../views/admin/orders/Create.vue"
+import AdShowOrders from "../views/admin/orders/Show.vue"
 import AdProdShow from "../views/admin/products/Show.vue"
 import AdProdCreate from "../views/admin/products/Create.vue"
 import AdProdEdit from "../views/admin/products/Edit.vue"
@@ -61,6 +63,24 @@ const router = createRouter({
       path: '/admin/orders',
       name: 'orders',
       component: AdOrders,
+      meta: {
+        middleware: auth
+      }
+    },
+    // Route per creare un nuovo ordine
+    {
+      path: '/admin/orders/new',
+      name: 'createOrders',
+      component: AdCreateOrders,
+      meta: {
+        middleware: auth
+      }
+    },
+    // Route per visualizzare singolo ordine
+    {
+      path: '/admin/orders/:id/show',
+      name: 'showOrders',
+      component: AdShowOrders,
       meta: {
         middleware: auth
       }

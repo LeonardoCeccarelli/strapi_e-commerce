@@ -50,7 +50,7 @@
                 <router-link
                   class="dropdown-item"
                   :to="{name: 'orders'}"
-                >I Miei rdini</router-link>
+                >I Miei ordini</router-link>
               </li>
               <li>
                 <router-link

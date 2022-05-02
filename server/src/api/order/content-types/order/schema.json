@@ -22,11 +22,17 @@
       "relation": "oneToOne",
       "target": "api::state.state"
     },
-    "user": {
+    "user_sender": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "orders"
+      "inversedBy": "orders_sent"
+    },
+    "user_recipient": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "orders_received"
     }
   }
 }

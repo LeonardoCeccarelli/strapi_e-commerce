@@ -63,11 +63,17 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "orders": {
+    "orders_sent": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::order.order",
-      "mappedBy": "user"
+      "mappedBy": "user_sender"
+    },
+    "orders_received": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "user_recipient"
     }
   }
 }

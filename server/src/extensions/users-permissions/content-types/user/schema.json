@@ -74,6 +74,12 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "user_recipient"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "user"
     }
   }
 }

@@ -30,6 +30,18 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "products"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "products"
+    },
+    "scount": {
+      "type": "integer",
+      "max": 100,
+      "min": 0,
+      "default": 0
     }
   }
 }

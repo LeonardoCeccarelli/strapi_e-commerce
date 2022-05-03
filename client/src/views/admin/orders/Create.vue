@@ -17,7 +17,7 @@
       <button
         @click="onPrepareOrder"
         class="btn btn-outline-success"
-      >Effettua l'ordine</button>
+      >Calcolo ordine</button>
     </div>
   </div>
 </template>

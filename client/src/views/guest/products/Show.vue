@@ -1,6 +1,30 @@
 <template>
   <div class="container pb-5">
     <Spinner v-if="onLoad"></Spinner>
+
+    <!-- Modal  -->
+    <div
+      v-if="productData.attributes"
+      class="modal"
+      :class="modalShow ? 'd-block' : ''"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-success">Elemento aggiunto correttamente al carrello</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              @click="onModalClose"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fine modal -->
+
     <div v-if="productData.attributes">
       <h1 class="py-5">Pagina dettagli - {{ productData.attributes.name }}</h1>
       <h3>Prezzo: € {{ productData.attributes.price }}</h3>
@@ -25,12 +49,23 @@
       <h4 class="py-3">Nome: {{ productData.attributes.user.data.attributes.username }}</h4>
       <h4 class="py-3">E-mail: {{ productData.attributes.user.data.attributes.email }}</h4>
       <div class="text-center">
-        <router-link
+        <p
+          v-if="!isLogged"
+          class="text-secondary"
+        >Per aggiungere i prodotti nel carrello è necessario autenticarsi</p>
+        <p
+          v-if="chartFull"
+          class="text-secondary"
+        >Carrello pieno, procedi con il <router-link
+            class="link-secondary"
+            :to="{name: 'chart'}"
+          >Pagamento</router-link>
+        </p>
+        <button
+          @click="addToChart"
+          :disabled="!isLogged || chartFull"
           class="btn btn-outline-success"
-          :to="{name: 'createOrders', params: {
-            data: productData.id
-          }}"
-        >Compra ora!</router-link>
+        ><b>+</b> Aggiungi al carrello</button>
       </div>
     </div>
   </div>
@@ -44,6 +79,9 @@ export default {
     return {
       productData: {},
       onLoad: false,
+      isLogged: localStorage.getItem("userData") ? true : false,
+      modalShow: false,
+      chartFull: false,
     };
   },
   methods: {
@@ -56,6 +94,7 @@ export default {
     },
 
     getData() {
+      if (localStorage.getItem("chart")) this.chartFull = true;
       this.onLoad = true;
       const url = `http://localhost:1337/api/products/${this.$route.params.id}?populate=*`;
       const defaultToken =
@@ -72,8 +111,23 @@ export default {
           this.checked();
         })
         .catch((err) => {
-          if (err) this.$router.push({ name: "home" });
+          // if (err) this.$router.push({ name: "home" });
         });
+    },
+    addToChart() {
+      if (!localStorage.getItem("userData")) {
+        return;
+      }
+      if (!localStorage.getItem("chart")) {
+        localStorage.setItem("chart", JSON.stringify(this.productData));
+        this.modalShow = true;
+        setTimeout(() => {
+          this.modalShow = false;
+        }, 2000);
+      }
+    },
+    onModalClose() {
+      this.modalShow = false;
     },
   },
   mounted() {

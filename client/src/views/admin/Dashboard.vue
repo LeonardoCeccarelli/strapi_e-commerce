@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container pb-5">
     <Spinner v-if="onLoad"></Spinner>
     <h1 class="mt-5">Benvenuto {{ userData.username }},</h1>
     <h3 class="py-5">I tuoi prodotti</h3>
@@ -9,7 +9,7 @@
     >Ancora nessun prodotto</h4>
     <div
       v-else
-      class="row row-cols-5 g-3"
+      class="row row-cols-1 g-3"
     >
       <div
         v-for="product in listProducts"
@@ -54,7 +54,7 @@ export default {
   methods: {
     getData() {
       this.onLoad = true;
-      const url = `http://localhost:1337/api/products?populate=*&pagination[pageSize]=10&filters[user][id][$eq]=${this.userData.id}`;
+      const url = `http://localhost:1337/api/products?populate=*&sort[0]=createdAt%3Adesc&pagination[pageSize]=20&filters[user][id][$eq]=${this.userData.id}`;
       axios
         .get(url, {
           headers: {

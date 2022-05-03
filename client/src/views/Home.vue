@@ -56,10 +56,10 @@ export default {
       const userToken = localStorage.getItem("jwt");
       let logUrl = "";
       if (user) {
-        logUrl = `http://localhost:1337/api/products?populate=*&pagination[pageSize]=10&filters[user][id][$ne]=${user.id}`;
+        logUrl = `http://localhost:1337/api/products?populate=*&sort[0]=createdAt%3Adesc&pagination[pageSize]=20&filters[user][id][$ne]=${user.id}`;
       }
       const notLogUrl =
-        "http://localhost:1337/api/products?populate=*&pagination[pageSize]=10";
+        "http://localhost:1337/api/products?populate=*&sort[0]=createdAt%3Adesc&pagination[pageSize]=20";
       const defaultToken =
         "800a456dc1f5701ed094dc11cfaf1898debcbb80486cfdf5505b3578885f690fb05e4a610bc30cc147392d653b083042eef8738514503f302aa1862fc80e101e400b30aabca443afc95c691a84440ce4ca2d518b5cb50947121a8b82ea35a26e9c2d7db3d90b8c46676719f62c6e1c208bf0bc8a03e62a7eb011d6a7e4038e6c";
       if (user) {

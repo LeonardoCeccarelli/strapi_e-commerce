@@ -90,6 +90,7 @@ export default {
         })
         .catch((error) => {
           console.log("An error occurred:", error.response);
+          this.onLoad = false;
         });
     },
   },

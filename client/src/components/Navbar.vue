@@ -49,14 +49,20 @@
               <li>
                 <router-link
                   class="dropdown-item"
-                  :to="{name: 'orders'}"
-                >I Miei ordini</router-link>
+                  :to="{name: 'createProduct'}"
+                >Nuovo prodotto</router-link>
               </li>
               <li>
                 <router-link
                   class="dropdown-item"
-                  :to="{name: 'createProduct'}"
-                >Nuovo prodotto</router-link>
+                  :to="{name: 'chart'}"
+                >Carrello</router-link>
+              </li>
+              <li>
+                <router-link
+                  class="dropdown-item"
+                  :to="{name: 'orders'}"
+                >I Miei ordini</router-link>
               </li>
               <li>
                 <hr class="dropdown-divider">

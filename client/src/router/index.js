@@ -6,6 +6,7 @@ import GuProdShow from "../views/guest/products/Show.vue"
 import Login from "../views/guest/Login.vue"
 import Register from "../views/guest/Register.vue"
 import AdDashboard from "../views/admin/Dashboard.vue"
+import Chart from "../views/admin/Chart.vue"
 import AdOrders from "../views/admin/orders/Orders.vue"
 import AdCreateOrders from "../views/admin/orders/Create.vue"
 import AdShowOrders from "../views/admin/orders/Show.vue"
@@ -54,6 +55,15 @@ const router = createRouter({
       path: '/admin/dashboard',
       name: 'dashboard',
       component: AdDashboard,
+      meta: {
+        middleware: auth
+      }
+    },
+    // Route di arrivo per visualizzare prodotti nel carrello ripresi dal localstorage
+    {
+      path: '/admin/chart',
+      name: 'chart',
+      component: Chart,
       meta: {
         middleware: auth
       }

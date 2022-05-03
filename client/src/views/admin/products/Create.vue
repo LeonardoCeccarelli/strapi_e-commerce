@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Spinner v-if="onLoad"></Spinner>
     <h1 class="text-center py-5">Aggiungi un nuovo prodotto</h1>
     <div class="row justify-content-center">
       <div class="col-10 col-sm-8 col-md-6">
@@ -100,9 +101,11 @@
 
 <script>
 import axios from "axios";
+import Spinner from "../../../components/Spinner.vue";
 export default {
   data() {
     return {
+      onLoad: false,
       listCategories: {},
       author: JSON.parse(localStorage.getItem("userData")).username,
       data: {
@@ -118,6 +121,7 @@ export default {
   methods: {
     onSubmit(e) {
       // Validazione
+      this.onLoad = true;
       axios
         .post(
           "http://localhost:1337/api/products",
@@ -145,14 +149,18 @@ export default {
           },
         })
         .then((resp) => {
+          this.onload = false;
           this.listCategories = resp.data.data;
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.onload = false;
+        });
     },
   },
   mounted() {
     this.getData();
   },
+  components: { Spinner },
 };
 </script>
 

@@ -61,8 +61,14 @@
               <li>
                 <router-link
                   class="dropdown-item"
-                  :to="{name: 'orders'}"
-                >I Miei ordini</router-link>
+                  :to="{name: 'ordersRecipient'}"
+                >Ordini ricevuti</router-link>
+              </li>
+              <li>
+                <router-link
+                  class="dropdown-item"
+                  :to="{name: 'ordersSend'}"
+                >Ordini Spediti</router-link>
               </li>
               <li>
                 <hr class="dropdown-divider">

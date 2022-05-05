@@ -53,17 +53,9 @@
           v-if="!isLogged"
           class="text-secondary"
         >Per aggiungere i prodotti nel carrello è necessario autenticarsi</p>
-        <p
-          v-if="chartFull"
-          class="text-secondary"
-        >Carrello pieno, procedi con il <router-link
-            class="link-secondary"
-            :to="{name: 'chart'}"
-          >Pagamento</router-link>
-        </p>
         <button
           @click="addToChart"
-          :disabled="!isLogged || chartFull"
+          :disabled="!isLogged"
           class="btn btn-outline-success"
         ><b>+</b> Aggiungi al carrello</button>
       </div>
@@ -81,7 +73,6 @@ export default {
       onLoad: false,
       isLogged: localStorage.getItem("userData") ? true : false,
       modalShow: false,
-      chartFull: false,
     };
   },
   methods: {
@@ -115,15 +106,26 @@ export default {
         });
     },
     addToChart() {
+      // Se l'utente non è autenticato ritorna
       if (!localStorage.getItem("userData")) {
         return;
       }
+      // Se non è presente il carrello lo crea da 0
       if (!localStorage.getItem("chart")) {
-        localStorage.setItem("chart", JSON.stringify(this.productData));
+        localStorage.setItem("chart", this.productData.id);
         this.modalShow = true;
         setTimeout(() => {
           this.modalShow = false;
-        }, 2000);
+        }, 500);
+      } else {
+        // Se è presente lo aggiungo a quelli esistenti
+        let allProductChart = localStorage.getItem("chart");
+        allProductChart = `${allProductChart},${this.productData.id}`;
+        localStorage.setItem("chart", allProductChart);
+        this.modalShow = true;
+        setTimeout(() => {
+          this.modalShow = false;
+        }, 500);
       }
     },
     onModalClose() {

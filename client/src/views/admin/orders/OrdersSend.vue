@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Sezione miei ordini</h1>
+    <h1>Sezione Ordini Inviati</h1>
   </div>
 </template>
 

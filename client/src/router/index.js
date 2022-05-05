@@ -7,7 +7,8 @@ import Login from "../views/guest/Login.vue"
 import Register from "../views/guest/Register.vue"
 import AdDashboard from "../views/admin/Dashboard.vue"
 import Chart from "../views/admin/Chart.vue"
-import AdOrders from "../views/admin/orders/Orders.vue"
+import AdOrdersRecipient from "../views/admin/orders/OrdersRecipient.vue"
+import AdOrdersSend from "../views/admin/orders/OrdersSend.vue"
 import AdCreateOrders from "../views/admin/orders/Create.vue"
 import AdShowOrders from "../views/admin/orders/Show.vue"
 import AdProdShow from "../views/admin/products/Show.vue"
@@ -68,11 +69,20 @@ const router = createRouter({
         middleware: auth
       }
     },
-    //Route che mostra gli ordini di un utente registrato
+    //Route che mostra gli ordini ricevuti di un utente registrato
     {
-      path: '/admin/orders',
-      name: 'orders',
-      component: AdOrders,
+      path: '/admin/orders/recipient',
+      name: 'ordersRecipient',
+      component: AdOrdersRecipient,
+      meta: {
+        middleware: auth
+      }
+    },
+    //Route che mostra gli ordini ricevuti di un utente registrato
+    {
+      path: '/admin/orders/send',
+      name: 'ordersSend',
+      component: AdOrdersSend,
       meta: {
         middleware: auth
       }

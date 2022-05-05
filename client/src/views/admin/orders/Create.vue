@@ -142,14 +142,26 @@ export default {
     },
     onCreateOrder() {
       this.onLoad = true;
+      const productsToServer = [];
+      this.listProductsData.forEach((product) => {
+        if (!productsToServer.includes(product.data.id)) {
+          productsToServer.push(product.data.id);
+        }
+      });
+      const usersToServer = [];
+      this.listProductsData.forEach((product) => {
+        if (!usersToServer.includes(product.data.attributes.user.data.id)) {
+          usersToServer.push(product.data.attributes.user.data.id);
+        }
+      });
       axios
         .post(
           "http://localhost:1337/api/orders",
           {
             data: {
-              product: this.productData.id,
+              products: productsToServer,
               state: 1,
-              user_sender: this.productData.attributes.user.data.id,
+              user_senders: usersToServer,
               user_recipient: JSON.parse(localStorage.getItem("userData")).id,
               price_on_purchase: this.totPrice,
             },

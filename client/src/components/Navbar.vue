@@ -68,7 +68,7 @@
                 <router-link
                   class="dropdown-item"
                   :to="{name: 'ordersSend'}"
-                >Ordini Spediti</router-link>
+                >Ordini spediti</router-link>
               </li>
               <li>
                 <hr class="dropdown-divider">
